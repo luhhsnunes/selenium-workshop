@@ -1,5 +1,3 @@
-package steps;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 /**
  * Created by lnunes on 9/18/14.
  */
-public class Busca {
+public class Exercicio1 {
     public FirefoxDriver driver;
 
 
@@ -40,4 +38,5 @@ public class Busca {
         assertThat(result.isDisplayed(), equalTo(Boolean.TRUE));
 
     }
+
 }
