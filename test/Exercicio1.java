@@ -9,34 +9,27 @@ import java.util.concurrent.TimeUnit;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-/**
- * Created by lnunes on 9/18/14.
- */
 public class Exercicio1 {
-    public FirefoxDriver driver;
+	public FirefoxDriver driver;
 
+	@Before
+	public void setup(){
+		driver = new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
 
-    @Before
-    public void setup(){
+	@After
+	public void tearDown(){
+		driver.close();
+	}
 
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
-
-    @After
-    public void tearDown(){
-
-        driver.close();
-    }
-
-    @Test
-    public void realizaBusca() throws InterruptedException {
-        driver.get("http://www.google.com");
-        driver.findElementById("gbqfq").sendKeys("Pão de Queijo Mineiro");
-        driver.findElementById("gbqfb").click();
-        WebElement result = driver.findElementByLinkText("Pão de Queijo Mineiro");
-        assertThat(result.isDisplayed(), equalTo(Boolean.TRUE));
-
-    }
-
+	@Test
+	public void realizaBusca() throws InterruptedException {
+		driver.get("http://www.google.com");
+		driver.findElementById("gbqfq").sendKeys("Pão de Queijo Mineiro");
+		driver.findElementById("gbqfb").click();
+		WebElement link = driver.findElementByLinkText("Pão de Queijo Mineiro");
+		
+		assertThat(link.isDisplayed(), equalTo(Boolean.TRUE));
+	}
 }
