@@ -1,6 +1,8 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -10,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class Exercicio1 {
-	public FirefoxDriver driver;
+	WebDriver driver;
 
 	@Before
 	public void setup() {
@@ -26,9 +28,9 @@ public class Exercicio1 {
 	@Test
 	public void realizaBusca() {
 		driver.get("http://www.google.com");
-		driver.findElementById("gbqfq").sendKeys("Pão de Queijo Mineiro");
-		driver.findElementById("gbqfb").click();
-		WebElement link = driver.findElementByLinkText("Pão de Queijo Mineiro");
+		driver.findElement(By.id("gbqfq")).sendKeys("Pão de Queijo Mineiro");
+		driver.findElement(By.id("gbqfb")).click();
+		WebElement link = driver.findElement(By.linkText("Pão de Queijo Mineiro"));
 		
 		assertThat(link.isDisplayed(), equalTo(Boolean.TRUE));
 	}

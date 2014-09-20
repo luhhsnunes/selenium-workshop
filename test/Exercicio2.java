@@ -2,6 +2,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.Random;
@@ -11,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public class Exercicio2 {
-    public FirefoxDriver driver;
+    WebDriver driver;
 
     @Before
     public void setup() {
@@ -27,12 +28,12 @@ public class Exercicio2 {
     @Test
     public void createAccount(){
         driver.get("http://www.flipkart.com/");
-        driver.findElementByClassName(("signup-link")).click();
-        driver.findElementById("signup-email").sendKeys("pedro-" + generateRandomNumber() + "@gmail.com");
-        driver.findElementById("signup-password").sendKeys("Tartaruga01");
-        driver.findElementByName("repeat-password").sendKeys("Tartaruga01");
+        driver.findElement(By.className("signup-link")).click();
+        driver.findElement(By.id("signup-email")).sendKeys("pedro-" + generateRandomNumber() + "@gmail.com");
+        driver.findElement(By.id("signup-password")).sendKeys("Tartaruga01");
+        driver.findElement(By.name("repeat-password")).sendKeys("Tartaruga01");
         driver.findElement(By.cssSelector("input[value = 'Sign Up Now!']")).click();
-        boolean result = driver.findElementByClassName("greeting-link").isEnabled();
+        boolean result = driver.findElement(By.className("greeting-link")).isEnabled();
         
         assertThat(result, equalTo(Boolean.TRUE));
     }
@@ -40,10 +41,10 @@ public class Exercicio2 {
     @Test
     public void editAccount(){
         driver.get("http://www.flipkart.com/account");
-        driver.findElementById("login_email_id1").sendKeys("bruno@gmail.com");
-        driver.findElementById("login_password1").sendKeys("Tartaruga01");
-        driver.findElementById("login-cta").click();
-        String message = driver.findElementByClassName("fk-font-verybig").getText();
+        driver.findElement(By.id("login_email_id1")).sendKeys("bruno@gmail.com");
+        driver.findElement(By.id("login_password1")).sendKeys("Tartaruga01");
+        driver.findElement(By.id("login-cta")).click();
+        String message = driver.findElement(By.className("fk-font-verybig")).getText();
         
         assertThat(message, is("Personal Information"));
     }
