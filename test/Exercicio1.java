@@ -13,18 +13,18 @@ public class Exercicio1 {
 	public FirefoxDriver driver;
 
 	@Before
-	public void setup(){
+	public void setup() {
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 
 	@After
-	public void tearDown(){
+	public void tearDown() {
 		driver.close();
 	}
 
 	@Test
-	public void realizaBusca() throws InterruptedException {
+	public void realizaBusca() {
 		driver.get("http://www.google.com");
 		driver.findElementById("gbqfq").sendKeys("Pão de Queijo Mineiro");
 		driver.findElementById("gbqfb").click();
