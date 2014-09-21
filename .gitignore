@@ -5,4 +5,5 @@ out/
 *.iml
 *.class
 .classpath/
+.classpath
 .project
