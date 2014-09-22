@@ -8,17 +8,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
-
-
-// Silly implementation with lots of code duplication.
-// The implementation below is just for basic learning purposes.
-// For a decent implementation of the code below, please look inside the PageObject directory.
 
 public class Exercicio5 {
 	WebDriver driver;
