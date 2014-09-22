@@ -17,7 +17,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 // Silly implementation with lots of code duplication.
 // The implementation below is just for basic learning purposes.
-// For a decent implementation (using Page Object pattern), please see Exercicio4.java
+// For a decent implementation of the code below, please look inside the PageObject directory.
 
 public class Exercicio3 {
 	WebDriver driver;
