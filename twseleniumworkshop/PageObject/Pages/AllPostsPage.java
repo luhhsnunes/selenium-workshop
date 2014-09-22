@@ -1,4 +1,4 @@
-package twseleniumworkshop.PageObject;
+package twseleniumworkshop.PageObject.Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -34,11 +34,32 @@ public class AllPostsPage {
 		publish.click();
 	}
 	
-	public void editPost(String newPostTitle, String newPostBody) {
-		
+	public void editPost(String title, String newPostBody) {
+		WebElement post = driver.findElement(By.linkText(title));
+		post.click();
+		driver.switchTo().frame("content_ifr");
+		postBody.clear();
+		postBody.sendKeys(newPostBody);
+		driver.switchTo().defaultContent();
+		publish.click();
 	}
 	
 	public void deletePost(String title) {
-		
+		WebElement post = driver.findElement(By.linkText(title));
+		post.click();
+		WebElement deletePost = driver.findElement(By.linkText("Move to Trash"));
+		deletePost.click();
+	}
+	
+	public Boolean verifyIfPostWasAdded(String post) {
+		return driver.getPageSource().contains(post);
+	}
+	
+	public String getUpdatedPostMessage() {
+		return driver.findElement(By.cssSelector("#message p")).getText();
+	}
+	
+	public String getDeletedPostMessage() {
+		return driver.findElement(By.cssSelector("#message p")).getText();
 	}
 }

@@ -1,6 +1,6 @@
 package twseleniumworkshop.PageObject;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.concurrent.TimeUnit;
@@ -15,7 +15,7 @@ import org.openqa.selenium.support.PageFactory;
 import twseleniumworkshop.PageObject.Pages.AdminLoginPage;
 import twseleniumworkshop.PageObject.Pages.AllPostsPage;
 
-public class AddNewPostTest {
+public class EditPostTest {
 	WebDriver driver;
 	
 	@Before
@@ -29,16 +29,16 @@ public class AddNewPostTest {
 	public void tearDown() {
 		driver.close();
 	}
-
+	
 	@Test
-	public void addNewPost() {
+	public void editPost() {
 		AdminLoginPage adminLoginPage = PageFactory.initElements(driver, AdminLoginPage.class);
 		adminLoginPage.login();
 		
 		AllPostsPage allPostsPage = PageFactory.initElements(driver, AllPostsPage.class);
-		allPostsPage.addNewPost("My First Post", "This is a description.");
+		allPostsPage.editPost("My First Post", "This is a NEW description.");
 		
-		Boolean postAdded = allPostsPage.verifyIfPostWasAdded("My First Post");
-		assertThat(postAdded, equalTo(Boolean.TRUE));
+		String updatedPostMessage = allPostsPage.getUpdatedPostMessage();
+		assertThat(updatedPostMessage, is("Post updated. View post"));
 	}
 }
