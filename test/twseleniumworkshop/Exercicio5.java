@@ -14,37 +14,70 @@ import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class Exercicio5 {
-	WebDriver driver;
-	
-	@Before
-	public void setUp() {
-		driver = new FirefoxDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	}
-	
-	@After
-	public void tearDown() {
-		driver.close();
-	}
-	
-	@Test
-	public void demoTest(){
+    WebDriver driver;
+
+    @Before
+    public void setUp() {
+        driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
+    @After
+    public void tearDown() {
+        driver.close();
+    }
+
+    @Test
+    public void successfulSubmit(){
         driver.get("http://bit.ly/watir-webdriver-demo");
         driver.findElement(By.id("entry_0")).sendKeys("Rodrigo Tolledo");
-        selectOptionInDropBox("entry_1", "Ruby");
+
+        setDropDownListBox("entry_1","Ruby");
+
         driver.findElement(By.id("group_2_1")).click();
         driver.findElement(By.id("group_3_3")).click();
         driver.findElement(By.name("submit")).click();
         String message = driver.findElement(By.className("ss-custom-resp")).getText();
-
         assertThat(message, is("Thank you for playing with Watir-WebDriver"));
 
     }
 
-    public void selectOptionInDropBox(String id, String value){
+    @Test
+    public void submitSelectingMultipleVersions(){
+        driver.get("http://bit.ly/watir-webdriver-demo");
+        driver.findElement(By.id("entry_0")).sendKeys("Rodrigo Tolledo");
+
+        setDropDownListBox("entry_1", "Java");
+
+        driver.findElement(By.id("group_2_3")).click();
+        driver.findElement(By.id("group_3_1")).click();
+        driver.findElement(By.id("group_3_2")).click();
+        driver.findElement(By.id("group_3_3")).click();
+        driver.findElement(By.name("submit")).click();
+
+        String message = driver.findElement(By.className("ss-custom-resp")).getText();
+        assertThat(message, is("Thank you for playing with Watir-WebDriver"));
+    }
+
+    @Test
+    public void submitWithoutNameField(){
+        driver.get("http://bit.ly/watir-webdriver-demo");
+
+        setDropDownListBox("entry_1", "Java");
+
+        driver.findElement(By.id("group_2_3")).click();
+        driver.findElement(By.id("group_3_1")).click();
+        driver.findElement(By.name("submit")).click();
+
+        String message = driver.findElement(By.xpath(".//*[@id='ss-form']/div[1]/b")).getText();
+        assertThat(message, is("Você tem uma ou mais perguntas que ainda não foram respondidas."));
+    }
+
+    public void setDropDownListBox(String id, String value) {
         WebElement dropDownListBox = driver.findElement(By.id(id));
         Select clickThis = new Select(dropDownListBox);
         clickThis.selectByVisibleText(value);
     }
+
 }
