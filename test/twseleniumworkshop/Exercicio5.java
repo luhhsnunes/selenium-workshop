@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class Exercicio5 {
 	WebDriver driver;
@@ -43,8 +43,8 @@ public class Exercicio5 {
     }
 
     public void selectOptionInDropBox(String id, String value){
-        WebElement dropDownListBox = driver.findElement(By.id("entry_1"));
+        WebElement dropDownListBox = driver.findElement(By.id(id));
         Select clickThis = new Select(dropDownListBox);
-        clickThis.selectByVisibleText("Ruby");
+        clickThis.selectByVisibleText(value);
     }
 }
