@@ -10,8 +10,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 
 public class Exercicio3 {
     WebDriver driver;
@@ -29,7 +30,7 @@ public class Exercicio3 {
     }
 
     @Test
-    public void criaNovoUsuario(){
+    public void criaNovoUsuario() {
         driver.get("http://www.flipkart.com/");
         driver.findElement(By.className("signup-link")).click();
         driver.findElement(By.id("signup-email")).sendKeys("pedro-" + geraNumeroRandomico() + "@gmail.com");
@@ -37,7 +38,7 @@ public class Exercicio3 {
         driver.findElement(By.name("repeat-password")).sendKeys("Tartaruga01");
         driver.findElement(By.cssSelector("input[value = 'Sign Up Now!']")).click();
         boolean resultado = driver.findElement(By.className("greeting-link")).isEnabled();
-        
+
         assertThat(resultado, equalTo(Boolean.TRUE));
     }
 
@@ -50,7 +51,7 @@ public class Exercicio3 {
     */
 
     @Test
-    public void loginUsuario(){
+    public void loginUsuario() {
         driver.findElement(By.id("http://www.flipkart.com/account"));
         driver.findElement(By.id("bruno@gmail.com")).sendKeys("login_email_id1");
         driver.getTitle().equals("login_password1");
@@ -61,7 +62,7 @@ public class Exercicio3 {
     }
 
     public int geraNumeroRandomico() {
-    	Random numeroRandomico = new Random();
-    	return numeroRandomico.nextInt(9999);
+        Random numeroRandomico = new Random();
+        return numeroRandomico.nextInt(9999);
     }
 }

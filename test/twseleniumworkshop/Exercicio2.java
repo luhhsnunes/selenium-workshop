@@ -7,10 +7,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 
 public class Exercicio2 {
     WebDriver driver;
@@ -34,7 +35,7 @@ public class Exercicio2 {
 
         driver.findElement(By.id("entry_1050252143")).sendKeys("Luiza");
 
-        Select linguagemProgramacao= new Select(driver.findElement(By.id("entry_2043435478")));
+        Select linguagemProgramacao = new Select(driver.findElement(By.id("entry_2043435478")));
         linguagemProgramacao.selectByValue("Java");
 
         driver.findElement(By.cssSelector("input[value= 'What is Selenium-WebDriver?']")).click();

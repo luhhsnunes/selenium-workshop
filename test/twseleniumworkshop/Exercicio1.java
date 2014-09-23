@@ -11,30 +11,30 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
 
 public class Exercicio1 {
-	WebDriver driver;
+    WebDriver driver;
 
-	@Before
-	public void setup() {
-		driver = new FirefoxDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	}
+    @Before
+    public void setup() {
+        driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
 
-	@After
-	public void tearDown() {
-		driver.close();
-	}
+    @After
+    public void tearDown() {
+        driver.close();
+    }
 
-	@Test
-	public void realizaBusca() {
-		driver.get("http://www.google.com");
-		driver.findElement(By.id("gbqfq")).sendKeys("Pão de Queijo Mineiro");
-		driver.findElement(By.id("gbqfb")).click();
-		WebElement link = driver.findElement(By.linkText("Pão de Queijo Mineiro"));
-		
-		assertThat(link.isDisplayed(), equalTo(Boolean.TRUE));
-	}
+    @Test
+    public void realizaBusca() {
+        driver.get("http://www.google.com");
+        driver.findElement(By.id("gbqfq")).sendKeys("Pão de Queijo Mineiro");
+        driver.findElement(By.id("gbqfb")).click();
+        WebElement link = driver.findElement(By.linkText("Pão de Queijo Mineiro"));
+
+        assertThat(link.isDisplayed(), equalTo(Boolean.TRUE));
+    }
 }
