@@ -7,3 +7,5 @@ out/
 .classpath/
 .classpath
 .project
+build/
+.gradle/
