@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.concurrent.TimeUnit;
@@ -18,8 +19,14 @@ public class Exercicio2 {
 
     @Before
     public void setup() {
-        driver = new FirefoxDriver();
-        driver.manage().window().maximize();
+        System.setProperty("webdriver", "firefox");
+
+        if ("firefox".equals(System.getProperty("webdriver"))) {
+            driver = new FirefoxDriver();
+            driver.manage().window().maximize();
+        } else {
+            driver = new PhantomJSDriver();
+        }
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
