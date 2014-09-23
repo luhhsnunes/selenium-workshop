@@ -2,10 +2,8 @@ package twseleniumworkshop;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
+import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.concurrent.TimeUnit;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,78 +33,78 @@ public class Exercicio4 {
 	}
 	
 	@Test
-	public void addNewPost() {
+	public void criaNovaPostagem() {
 		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin");
 		WebElement email = driver.findElement(By.id("user_login"));
-		WebElement password = driver.findElement(By.id("user_pass"));
-		WebElement submit = driver.findElement(By.id("wp-submit"));
+		WebElement senha = driver.findElement(By.id("user_pass"));
+		WebElement envia = driver.findElement(By.id("wp-submit"));
 		email.sendKeys("twseleniumworkshop");
-		password.sendKeys("twseleniumworkshop!");
-		submit.click();
+		senha.sendKeys("twseleniumworkshop!");
+		envia.click();
 		
 		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin/edit.php");
-		WebElement addNewPost = driver.findElement(By.linkText("Add New"));
-		addNewPost.click();
+		WebElement novaPostagem = driver.findElement(By.linkText("Add New"));
+		novaPostagem.click();
 		
 		driver.switchTo().frame("content_ifr");
-		WebElement postBody = driver.findElement(By.id("tinymce"));
-		postBody.sendKeys("This is a description.");
+		WebElement corpoPostagem = driver.findElement(By.id("tinymce"));
+		corpoPostagem.sendKeys("This is a description.");
 		driver.switchTo().defaultContent();
-		WebElement postTitle = driver.findElement(By.id("title"));
-		postTitle.sendKeys("My First Post");
+		WebElement tituloPostagem = driver.findElement(By.id("title"));
+		tituloPostagem.sendKeys("My First Post");
 		
-		WebElement publish = driver.findElement(By.id("publish"));
-		publish.click();
+		WebElement publicar = driver.findElement(By.id("publish"));
+		publicar.click();
 		
-		Boolean titleExists = driver.getPageSource().contains("My First Post");
+		Boolean tituloExistente = driver.getPageSource().contains("My First Post");
 		
-		assertThat(titleExists, equalTo(Boolean.TRUE));
+		assertThat(tituloExistente, equalTo(Boolean.TRUE));
 	}
 	
 	@Test
-	public void editPost() {
+	public void editaPostagem() {
 		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin");
 		WebElement email = driver.findElement(By.id("user_login"));
-		WebElement password = driver.findElement(By.id("user_pass"));
-		WebElement submit = driver.findElement(By.id("wp-submit"));
+		WebElement senha = driver.findElement(By.id("user_pass"));
+		WebElement envia = driver.findElement(By.id("wp-submit"));
 		email.sendKeys("twseleniumworkshop");
-		password.sendKeys("twseleniumworkshop!");
-		submit.click();
+		senha.sendKeys("twseleniumworkshop!");
+		envia.click();
 		
 		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin/edit.php");
-		WebElement post = driver.findElement(By.linkText("My First Post"));
-		post.click();
+		WebElement postagem = driver.findElement(By.linkText("My First Post"));
+		postagem.click();
 		driver.switchTo().frame("content_ifr");
-		WebElement newPostBody = driver.findElement(By.id("tinymce"));
-		newPostBody.clear();
-		newPostBody.sendKeys("This is a NEW description.");
+		WebElement novoCorpoPostagem = driver.findElement(By.id("tinymce"));
+		novoCorpoPostagem.clear();
+		novoCorpoPostagem.sendKeys("This is a NEW description.");
 		driver.switchTo().defaultContent();
-		WebElement update = driver.findElement(By.id("publish"));
-		update.click();
+		WebElement atualiza = driver.findElement(By.id("publish"));
+		atualiza.click();
 		
-		String updatedPostMessage = driver.findElement(By.cssSelector("#message p")).getText();
+		String corpoPostagemAtualizado = driver.findElement(By.cssSelector("#message p")).getText();
 		
-		assertThat(updatedPostMessage, is("Post updated. View post"));
+		assertThat(corpoPostagemAtualizado, is("Post updated. View post"));
 	}
 	
 	@Test
-	public void deletePost() {
+	public void deletaPostagem() {
 		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin");
 		WebElement email = driver.findElement(By.id("user_login"));
-		WebElement password = driver.findElement(By.id("user_pass"));
-		WebElement submit = driver.findElement(By.id("wp-submit"));
+		WebElement senha = driver.findElement(By.id("user_pass"));
+		WebElement envia = driver.findElement(By.id("wp-submit"));
 		email.sendKeys("twseleniumworkshop");
-		password.sendKeys("twseleniumworkshop!");
-		submit.click();
+		senha.sendKeys("twseleniumworkshop!");
+		envia.click();
 		
 		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin/edit.php");
-		WebElement post = driver.findElement(By.linkText("My First Post"));
-		post.click();
-		WebElement deletePost = driver.findElement(By.linkText("Move to Trash"));
-		deletePost.click();
+		WebElement postagem = driver.findElement(By.linkText("My First Post"));
+		postagem.click();
+		WebElement deletaPostagem = driver.findElement(By.linkText("Move to Trash"));
+		deletaPostagem.click();
 		
-		String deletedPostMessage = driver.findElement(By.cssSelector("#message p")).getText();
+		String mensagemDeletadaPostagem = driver.findElement(By.cssSelector("#message p")).getText();
 		
-		assertThat(deletedPostMessage, is("1 post moved to the Trash. Undo"));
+		assertThat(mensagemDeletadaPostagem, is("1 post moved to the Trash. Undo"));
 	}
 }

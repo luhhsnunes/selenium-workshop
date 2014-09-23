@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AllPostsPage {
+public class TodasPostagensPage {
 	WebDriver driver;
 
 	@FindBy(id="title")
@@ -17,14 +17,14 @@ public class AllPostsPage {
 	@FindBy(id="publish")
 	WebElement publish;
 	
-	public AllPostsPage(WebDriver driver) {
+	public TodasPostagensPage(WebDriver driver) {
 		this.driver = driver;
 		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin/edit.php");
 	}
 
-	public void addNewPost(String postTitle, String postBody) {
-		WebElement addNewPost = driver.findElement(By.linkText("Add New"));
-		addNewPost.click();
+	public void novaPostagem(String postTitle, String postBody) {
+		WebElement novaPostagem = driver.findElement(By.linkText("Add New"));
+		novaPostagem.click();
 		
 		driver.switchTo().frame("content_ifr");
 		this.postBody.sendKeys(postBody);
@@ -34,7 +34,7 @@ public class AllPostsPage {
 		publish.click();
 	}
 	
-	public void editPost(String title, String newPostBody) {
+	public void editaPostagem(String title, String newPostBody) {
 		WebElement post = driver.findElement(By.linkText(title));
 		post.click();
 		driver.switchTo().frame("content_ifr");
@@ -44,22 +44,24 @@ public class AllPostsPage {
 		publish.click();
 	}
 	
-	public void deletePost(String title) {
+	public void deletaPostagem(String title) {
 		WebElement post = driver.findElement(By.linkText(title));
 		post.click();
 		WebElement deletePost = driver.findElement(By.linkText("Move to Trash"));
 		deletePost.click();
 	}
 	
-	public Boolean verifyIfPostWasAdded(String post) {
+	public Boolean verificaSePostFoiAdicionado(String post) {
 		return driver.getPageSource().contains(post);
 	}
 	
-	public String getUpdatedPostMessage() {
-		return driver.findElement(By.cssSelector("#message p")).getText();
+	public String recuperaMensagemPostagemAdicionada() {
+
+        return driver.findElement(By.cssSelector("#message p")).getText();
 	}
 	
-	public String getDeletedPostMessage() {
-		return driver.findElement(By.cssSelector("#message p")).getText();
+	public String recuperaMensagemPostagemDeletada() {
+
+        return driver.findElement(By.cssSelector("#message p")).getText();
 	}
 }

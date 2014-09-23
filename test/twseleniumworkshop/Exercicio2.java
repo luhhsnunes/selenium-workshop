@@ -28,14 +28,14 @@ public class Exercicio2 {
     }
 
     @Test
-    public void fillUpAndSubmit() {
+    public void preencheEnviaFormulario() {
 
         driver.get("http://tinyurl.com/twseleniumworkshop");
 
         driver.findElement(By.id("entry_1050252143")).sendKeys("Luiza");
 
-        Select language= new Select(driver.findElement(By.id("entry_2043435478")));
-        language.selectByValue("Java");
+        Select linguagemProgramacao= new Select(driver.findElement(By.id("entry_2043435478")));
+        linguagemProgramacao.selectByValue("Java");
 
         driver.findElement(By.cssSelector("input[value= 'What is Selenium-WebDriver?']")).click();
 
