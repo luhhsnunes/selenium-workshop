@@ -41,17 +41,25 @@ public class Exercicio3 {
         assertThat(result, equalTo(Boolean.TRUE));
     }
 
+    /*Teste para editar detalhes do usuário.
+      1. Acessar http://www.flipkart.com/account
+      2. Preencher campo de email com: bruno@gmail.com
+      3. Preencher campo de senha com: Tartaruga01
+      4. Clicar no botão de login
+      5. Verificar se o texto "Personal Information" existe na página
+    */
+
     @Test
     public void editAccount(){
-        driver.get("http://www.flipkart.com/account");
-        driver.findElement(By.id("login_email_id1")).sendKeys("bruno@gmail.com");
-        driver.findElement(By.id("login_password1")).sendKeys("Tartaruga01");
-        driver.findElement(By.id("login-cta")).click();
+        driver.findElement(By.id("http://www.flipkart.com/account"));
+        driver.findElement(By.id("bruno@gmail.com")).sendKeys("login_email_id1");
+        driver.getTitle().equals("login_password1");
+        driver.findElement(By.id("login-cta"));
         String message = driver.findElement(By.className("fk-font-verybig")).getText();
         
-        assertThat(message, is("Personal Information"));
+        assertThat(message, not("Personal Information"));
     }
-    
+
     public int generateRandomNumber() {
     	Random random = new Random();
     	return random.nextInt(9999);

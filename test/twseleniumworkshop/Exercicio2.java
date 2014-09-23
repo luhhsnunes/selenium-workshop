@@ -29,6 +29,7 @@ public class Exercicio2 {
 
     @Test
     public void fillUpAndSubmit() {
+
         driver.get("http://tinyurl.com/twseleniumworkshop");
 
         driver.findElement(By.id("entry_1050252143")).sendKeys("Luiza");
@@ -44,6 +45,9 @@ public class Exercicio2 {
         driver.findElement(By.id("ss-submit")).click();
 
         String response = driver.findElement(By.className("ss-resp-message")).getText();
+
         assertThat(response, is("Sua resposta foi registrada."));
+
     }
+
 }
