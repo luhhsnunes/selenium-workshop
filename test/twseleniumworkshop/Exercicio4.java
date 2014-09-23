@@ -1,53 +1,112 @@
 package twseleniumworkshop;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
-import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+
+// Silly implementation with lots of code duplication.
+// The implementation below is just for basic learning purposes.
+// For a decent implementation of the code below, please look inside the PageObject directory.
 
 public class Exercicio4 {
-    WebDriver driver;
-
-    @Before
-    public void setup() {
-        driver = new FirefoxDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
-
-    @After
-    public void tearDown() {
-        driver.close();
-    }
-
-    @Test
-    public void fillUpAndSubmit() {
-
-        driver.get("http://tinyurl.com/twseleniumworkshop");
-
-        driver.findElement(By.id("entry_1050252143")).sendKeys("Luiza");
-
-        Select language= new Select(driver.findElement(By.id("entry_2043435478")));
-        language.selectByValue("Java");
-
-        driver.findElement(By.cssSelector("input[value= 'What is Selenium-WebDriver?']")).click();
-
-        driver.findElement(By.cssSelector("input[value= 'Firefox']")).click();
-        driver.findElement(By.cssSelector("input[value= 'Safari']")).click();
-
-        driver.findElement(By.id("ss-submit")).click();
-
-        String response = driver.findElement(By.className("ss-resp-message")).getText();
-
-        assertThat(response, is("Sua resposta foi registrada."));
-
-    }
-
+	WebDriver driver;
+	
+	@Before
+	public void setUp() {
+		driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
+	
+	@After
+	public void tearDown() {
+		driver.close();
+	}
+	
+	@Test
+	public void addNewPost() {
+		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin");
+		WebElement email = driver.findElement(By.id("user_login"));
+		WebElement password = driver.findElement(By.id("user_pass"));
+		WebElement submit = driver.findElement(By.id("wp-submit"));
+		email.sendKeys("twseleniumworkshop");
+		password.sendKeys("twseleniumworkshop!");
+		submit.click();
+		
+		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin/edit.php");
+		WebElement addNewPost = driver.findElement(By.linkText("Add New"));
+		addNewPost.click();
+		
+		driver.switchTo().frame("content_ifr");
+		WebElement postBody = driver.findElement(By.id("tinymce"));
+		postBody.sendKeys("This is a description.");
+		driver.switchTo().defaultContent();
+		WebElement postTitle = driver.findElement(By.id("title"));
+		postTitle.sendKeys("My First Post");
+		
+		WebElement publish = driver.findElement(By.id("publish"));
+		publish.click();
+		
+		Boolean titleExists = driver.getPageSource().contains("My First Post");
+		
+		assertThat(titleExists, equalTo(Boolean.TRUE));
+	}
+	
+	@Test
+	public void editPost() {
+		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin");
+		WebElement email = driver.findElement(By.id("user_login"));
+		WebElement password = driver.findElement(By.id("user_pass"));
+		WebElement submit = driver.findElement(By.id("wp-submit"));
+		email.sendKeys("twseleniumworkshop");
+		password.sendKeys("twseleniumworkshop!");
+		submit.click();
+		
+		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin/edit.php");
+		WebElement post = driver.findElement(By.linkText("My First Post"));
+		post.click();
+		driver.switchTo().frame("content_ifr");
+		WebElement newPostBody = driver.findElement(By.id("tinymce"));
+		newPostBody.clear();
+		newPostBody.sendKeys("This is a NEW description.");
+		driver.switchTo().defaultContent();
+		WebElement update = driver.findElement(By.id("publish"));
+		update.click();
+		
+		String updatedPostMessage = driver.findElement(By.cssSelector("#message p")).getText();
+		
+		assertThat(updatedPostMessage, is("Post updated. View post"));
+	}
+	
+	@Test
+	public void deletePost() {
+		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin");
+		WebElement email = driver.findElement(By.id("user_login"));
+		WebElement password = driver.findElement(By.id("user_pass"));
+		WebElement submit = driver.findElement(By.id("wp-submit"));
+		email.sendKeys("twseleniumworkshop");
+		password.sendKeys("twseleniumworkshop!");
+		submit.click();
+		
+		driver.get("http://twseleniumworkshop.wordpress.com/wp-admin/edit.php");
+		WebElement post = driver.findElement(By.linkText("My First Post"));
+		post.click();
+		WebElement deletePost = driver.findElement(By.linkText("Move to Trash"));
+		deletePost.click();
+		
+		String deletedPostMessage = driver.findElement(By.cssSelector("#message p")).getText();
+		
+		assertThat(deletedPostMessage, is("1 post moved to the Trash. Undo"));
+	}
 }

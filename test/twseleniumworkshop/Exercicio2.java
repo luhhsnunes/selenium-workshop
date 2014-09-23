@@ -6,12 +6,11 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
-import java.util.Random;
+import org.openqa.selenium.support.ui.Select;
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
 
 public class Exercicio2 {
     WebDriver driver;
@@ -29,31 +28,22 @@ public class Exercicio2 {
     }
 
     @Test
-    public void createAccount(){
-        driver.get("http://www.flipkart.com/");
-        driver.findElement(By.className("signup-link")).click();
-        driver.findElement(By.id("signup-email")).sendKeys("pedro-" + generateRandomNumber() + "@gmail.com");
-        driver.findElement(By.id("signup-password")).sendKeys("Tartaruga01");
-        driver.findElement(By.name("repeat-password")).sendKeys("Tartaruga01");
-        driver.findElement(By.cssSelector("input[value = 'Sign Up Now!']")).click();
-        boolean result = driver.findElement(By.className("greeting-link")).isEnabled();
-        
-        assertThat(result, equalTo(Boolean.TRUE));
-    }
+    public void fillUpAndSubmit() {
+        driver.get("http://tinyurl.com/twseleniumworkshop");
 
-    @Test
-    public void editAccount(){
-        driver.get("http://www.flipkart.com/account");
-        driver.findElement(By.id("login_email_id1")).sendKeys("bruno@gmail.com");
-        driver.findElement(By.id("login_password1")).sendKeys("Tartaruga01");
-        driver.findElement(By.id("login-cta")).click();
-        String message = driver.findElement(By.className("fk-font-verybig")).getText();
-        
-        assertThat(message, is("Personal Information"));
-    }
-    
-    public int generateRandomNumber() {
-    	Random random = new Random();
-    	return random.nextInt(9999);
+        driver.findElement(By.id("entry_1050252143")).sendKeys("Luiza");
+
+        Select language= new Select(driver.findElement(By.id("entry_2043435478")));
+        language.selectByValue("Java");
+
+        driver.findElement(By.cssSelector("input[value= 'What is Selenium-WebDriver?']")).click();
+
+        driver.findElement(By.cssSelector("input[value= 'Firefox']")).click();
+        driver.findElement(By.cssSelector("input[value= 'Safari']")).click();
+
+        driver.findElement(By.id("ss-submit")).click();
+
+        String response = driver.findElement(By.className("ss-resp-message")).getText();
+        assertThat(response, is("Sua resposta foi registrada."));
     }
 }

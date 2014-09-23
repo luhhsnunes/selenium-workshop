@@ -40,7 +40,6 @@ public class Exercicio5 {
         driver.findElement(By.name("submit")).click();
         String message = driver.findElement(By.className("ss-custom-resp")).getText();
         assertThat(message, is("Thank you for playing with Watir-WebDriver"));
-
     }
 
     @Test
@@ -79,5 +78,4 @@ public class Exercicio5 {
         Select clickThis = new Select(dropDownListBox);
         clickThis.selectByVisibleText(value);
     }
-
 }
