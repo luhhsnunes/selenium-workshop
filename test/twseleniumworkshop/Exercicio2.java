@@ -19,7 +19,7 @@ public class Exercicio2 {
 
     @Before
     public void setup() {
-        System.setProperty("webdriver", "phantomjs");
+        System.setProperty("webdriver", "firefox");
 
         if ("firefox".equals(System.getProperty("webdriver"))) {
             driver = new FirefoxDriver();
