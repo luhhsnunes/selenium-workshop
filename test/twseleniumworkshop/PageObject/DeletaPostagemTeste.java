@@ -36,6 +36,7 @@ public class DeletaPostagemTeste {
 		todasPostagensPage.deletaPostagem("My First Post");
 		
 		String mensagemPostagemDeletada = todasPostagensPage.recuperaMensagemPostagemDeletada();
+		
 		assertThat(mensagemPostagemDeletada, is("1 post moved to the Trash. Undo"));
 	}
 }

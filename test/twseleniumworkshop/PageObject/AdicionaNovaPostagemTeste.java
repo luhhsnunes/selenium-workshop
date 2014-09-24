@@ -37,6 +37,7 @@ public class AdicionaNovaPostagemTeste {
 		todasPostagensPage.novaPostagem("My First Post", "This is a description.");
 		
 		Boolean postagemAdicionada = todasPostagensPage.verificaSePostFoiAdicionado("My First Post");
+		
 		assertThat(postagemAdicionada, equalTo(Boolean.TRUE));
 	}
 }

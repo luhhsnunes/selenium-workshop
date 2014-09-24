@@ -19,7 +19,7 @@ public class Exercicio2 {
 
     @Before
     public void setup() {
-        System.setProperty("webdriver", "firefox");
+        System.setProperty("webdriver", "phantomjs");
 
         if ("firefox".equals(System.getProperty("webdriver"))) {
             driver = new FirefoxDriver();
@@ -37,7 +37,6 @@ public class Exercicio2 {
 
     @Test
     public void preencheEnviaFormulario() {
-
         driver.get("http://tinyurl.com/twseleniumworkshop");
 
         driver.findElement(By.id("entry_1050252143")).sendKeys("Luiza");
@@ -55,7 +54,5 @@ public class Exercicio2 {
         String response = driver.findElement(By.className("ss-resp-message")).getText();
 
         assertThat(response, is("Sua resposta foi registrada."));
-
     }
-
 }

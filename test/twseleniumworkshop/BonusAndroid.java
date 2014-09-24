@@ -1,9 +1,5 @@
 package twseleniumworkshop;
 
-/**
- * Created by lnunes on 9/23/14.
- */
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,33 +13,30 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class BonusAndroid {
+	private WebDriver driver;
 
-    private WebDriver driver;
+	@Before
+	public void setUp() throws Exception {
+		// Choose the browser, version, and platform to test
+		DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+		// capabilities.setCapability("version", "");
+		capabilities.setCapability("device", "iphone");
+		// capabilities.setCapability("platform", Platform.ANY);
+		// Create the connection to Sauce Labs to run the tests
+		this.driver = new RemoteWebDriver(
+				new URL("http://usuario:chaveprivada@ondemand.saucelabs.com:80/wd/hub"),
+				capabilities);
+	}
 
-    @Before
-    public void setUp() throws Exception {
-        // Choose the browser, version, and platform to test
-        DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
-//            capabilities.setCapability("version", "");
-        capabilities.setCapability("device", "iphone");
-//            capabilities.setCapability("platform", Platform.ANY);
-        // Create the connection to Sauce Labs to run the tests
-        this.driver = new RemoteWebDriver(
-                new URL("http://usuario:chaveprivada@ondemand.saucelabs.com:80/wd/hub"),
-                capabilities);
-    }
+	@After
+	public void tearDown() {
+		driver.quit();
+	}
 
-    @Test
-    public void webDriver() throws Exception {
-        // Make the browser get the page and check its title
-        driver.get("http://www.amazon.com/");
-        assertThat("Amazon.com", equalTo(driver.getTitle()));
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        driver.quit();
-    }
-
+	@Test
+	public void verificaTituloAmazon() {
+		driver.get("http://www.amazon.com/");
+		assertThat("Amazon.com", equalTo(driver.getTitle()));
+	}
 }
 

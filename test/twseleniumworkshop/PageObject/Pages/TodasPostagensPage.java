@@ -25,12 +25,10 @@ public class TodasPostagensPage {
 	public void novaPostagem(String postTitle, String postBody) {
 		WebElement novaPostagem = driver.findElement(By.linkText("Add New"));
 		novaPostagem.click();
-		
 		driver.switchTo().frame("content_ifr");
 		this.postBody.sendKeys(postBody);
 		driver.switchTo().defaultContent();
 		this.postTitle.sendKeys(postTitle);
-		
 		publish.click();
 	}
 	
@@ -56,12 +54,10 @@ public class TodasPostagensPage {
 	}
 	
 	public String recuperaMensagemPostagemAdicionada() {
-
         return driver.findElement(By.cssSelector("#message p")).getText();
 	}
 	
 	public String recuperaMensagemPostagemDeletada() {
-
         return driver.findElement(By.cssSelector("#message p")).getText();
 	}
 }

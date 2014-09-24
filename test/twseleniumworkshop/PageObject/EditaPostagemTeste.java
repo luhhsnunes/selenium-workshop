@@ -37,6 +37,7 @@ public class EditaPostagemTeste {
 		todasPostagensPage.editaPostagem("My First Post", "This is a NEW description.");
 		
 		String mensagemPostagemAtualizada = todasPostagensPage.recuperaMensagemPostagemAdicionada();
+		
 		assertThat(mensagemPostagemAtualizada, is("Post updated. View post"));
 	}
 }

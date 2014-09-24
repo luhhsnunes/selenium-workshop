@@ -42,7 +42,9 @@ public class Exercicio3 {
         assertThat(resultado, equalTo(Boolean.TRUE));
     }
 
-    /*Teste para editar detalhes do usuário.
+    /* O teste abaixo foi propositalmente alterado para falhar. Que tal consertar? ;)
+      
+      Teste para editar detalhes do usuário.
       1. Acessar http://www.flipkart.com/account
       2. Preencher campo de email com: bruno@gmail.com
       3. Preencher campo de senha com: Tartaruga01
